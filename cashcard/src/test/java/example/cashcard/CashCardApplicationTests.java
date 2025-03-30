@@ -120,18 +120,18 @@ class CashCardApplicationTests {
         assertThat(amounts).containsExactly(1.00, 123.45, 150.00);
     }
 
-	@Test
-	void shouldNotReturnACashCardWhenUsingBadCredentials() {
-		ResponseEntity<String> response = restTemplate
-				.withBasicAuth("BAD-USER", "abc123")
-				.getForEntity("/cashcards/99", String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    @Test
+    void shouldNotReturnACashCardWhenUsingBadCredentials() {
+        ResponseEntity<String> response = restTemplate
+                .withBasicAuth("BAD-USER", "abc123")
+                .getForEntity("/cashcards/99", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
 
-		response = restTemplate
-				.withBasicAuth("sarah1", "BAD-PASSWORD")
-				.getForEntity("/cashcards/99", String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-	}
+        response = restTemplate
+                .withBasicAuth("sarah1", "BAD-PASSWORD")
+                .getForEntity("/cashcards/99", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
 
     @Test
     void shouldRejectUsersWhoAreNotCardOwners() {
@@ -151,7 +151,7 @@ class CashCardApplicationTests {
 
     @Test
     @DirtiesContext
-    void shouldUpdateAnExistingCashCard(){
+    void shouldUpdateAnExistingCashCard() {
         CashCard cashCardUpdate = new CashCard(null, 19.99, null);
         HttpEntity<CashCard> request = new HttpEntity<>(cashCardUpdate);
         ResponseEntity<Void> response = restTemplate
